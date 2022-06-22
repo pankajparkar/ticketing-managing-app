@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/shared/footer/src",
+  "sourceRoot": "libs/shared/ui/footer/src",
   "prefix": "acme",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/footer"],
+      "outputs": ["coverage/libs/shared/ui/footer"],
       "options": {
-        "jestConfig": "libs/shared/footer/jest.config.ts",
+        "jestConfig": "libs/shared/ui/footer/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/shared/footer/**/*.ts",
-          "libs/shared/footer/**/*.html"
+          "libs/shared/ui/footer/**/*.ts",
+          "libs/shared/ui/footer/**/*.html"
         ]
       }
     }

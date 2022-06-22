@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-footer',
-  preset: '../../../jest.preset.js',
+  displayName: 'shared-ui-footer',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/shared/footer',
+  coverageDirectory: '../../../../coverage/libs/shared/ui/footer',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

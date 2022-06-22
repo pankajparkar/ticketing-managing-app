@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-navbar',
-  preset: '../../../jest.preset.js',
+  displayName: 'shared-ui-navbar',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/shared/navbar',
+  coverageDirectory: '../../../../coverage/libs/shared/ui/navbar',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/shared/navbar/src",
+  "sourceRoot": "libs/shared/ui/navbar/src",
   "prefix": "acme",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/navbar"],
+      "outputs": ["coverage/libs/shared/ui/navbar"],
       "options": {
-        "jestConfig": "libs/shared/navbar/jest.config.ts",
+        "jestConfig": "libs/shared/ui/navbar/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/shared/navbar/**/*.ts",
-          "libs/shared/navbar/**/*.html"
+          "libs/shared/ui/navbar/**/*.ts",
+          "libs/shared/ui/navbar/**/*.html"
         ]
       }
     }
