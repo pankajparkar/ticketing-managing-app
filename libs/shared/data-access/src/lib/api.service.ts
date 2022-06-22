@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ticket, User } from '@acme/shared-models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   tickets() {
     return this.httpClient.get<Ticket[]>('/api/tickets');

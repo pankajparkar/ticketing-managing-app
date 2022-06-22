@@ -16,6 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@acme/shared-models": ["libs/shared-models/src/index.ts"],
+      "@acme/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@acme/ticket/feature/details": [
+        "libs/ticket/feature/details/src/index.ts"
+      ],
       "@acme/ticket/feature/list": ["libs/ticket/feature/list/src/index.ts"]
     }
   },

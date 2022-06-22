@@ -1,1 +1,1 @@
-export * from './lib/ticket-feature-list.module';
+export * from './lib/list.component';
