@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  selector: 'acme-ticket-list',
+  selector: 'acme-ticket-details',
   imports: [
     CommonModule,
   ],
