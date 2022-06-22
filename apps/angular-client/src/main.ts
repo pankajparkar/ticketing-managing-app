@@ -19,6 +19,7 @@ bootstrapApplication(AppComponent, {
       RouterModule.forRoot(
         [
           { path: 'ticket/list', component: TicketListComponent },
+          { path: 'ticket/details/:id', component: TicketListComponent },
           { path: '**', redirectTo: '/ticket/list' },
         ],
         {

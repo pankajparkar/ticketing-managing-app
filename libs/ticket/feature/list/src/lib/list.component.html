@@ -1,6 +1,9 @@
 <h2>Tickets</h2>
 <ul>
     <li *ngFor="let t of tickets$ | async">
-        Ticket: {{ t.id }}, {{ t.description }}
+        <a [routerLink]="['/ticket/details', 1]">
+            {{ t.id }}
+        </a>
+        Ticket: {{ t.description }}
     </li>
 </ul>
