@@ -1,3 +1,4 @@
+import { TicketDetailsComponent } from '@acme/ticket/feature/details';
 import { TicketListComponent } from '@acme/ticket/feature/list';
 import { HttpClientModule } from '@angular/common/http';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
@@ -19,7 +20,7 @@ bootstrapApplication(AppComponent, {
       RouterModule.forRoot(
         [
           { path: 'ticket/list', component: TicketListComponent },
-          { path: 'ticket/details/:id', component: TicketListComponent },
+          { path: 'ticket/details/:id', component: TicketDetailsComponent },
           { path: '**', redirectTo: '/ticket/list' },
         ],
         {
