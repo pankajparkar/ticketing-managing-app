@@ -54,17 +54,23 @@ export class TicketListComponent implements OnInit {
   ]);
   displayedColumns: string[] = ['description', 'assignee', 'status'];
   clickedRows = new Set<Ticket>();
-  pageSize = 2;
+  pageSize = 10;
+  total = 0;
+  filters = {
+    description: '',
+    assigneeId: '',
+  };
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(
     private api: ApiService,
     private snackbar: MatSnackBar,
-  ) { }
+  ) {
+  }
 
   addNewRow() {
-    this.tickets.push({
+    this.tickets.unshift({
       completed: false,
     } as Ticket);
     this.search();
@@ -72,8 +78,18 @@ export class TicketListComponent implements OnInit {
 
   search() {
     console.log(this.paginator.pageIndex);
+    const { description, assigneeId } = this.filters;
     const currentPage = this.paginator.pageIndex * this.pageSize;
-    this.filteredTickets = this.tickets.slice(currentPage, currentPage + this.pageSize);
+    const filteredTickets = this.tickets.filter(
+      (ticket) => (
+        !description || ticket.description.includes(description)
+      ) && (
+          !assigneeId || ticket.assigneeId === Number(assigneeId)
+        )
+    )
+    this.total = filteredTickets.length;
+
+    this.filteredTickets = filteredTickets.slice(currentPage, currentPage + this.pageSize);
   }
 
   cancel() {

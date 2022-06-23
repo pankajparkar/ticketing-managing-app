@@ -6,11 +6,13 @@
         <form novalidate (ngSubmit)="search()" [ngClass]="{disabled: isNewRecordAdded}">
             <mat-form-field appearance="fill">
                 <mat-label>Search by description</mat-label>
-                <input matInput placeholder="Ex. Implement add new feature" value="Sushi">
+                <input matInput name="description" [(ngModel)]="filters.description"
+                    placeholder="Ex. Implement add new feature" value="Sushi">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Assignee</mat-label>
-                <mat-select>
+                <mat-select name="assigneeId" [(ngModel)]="filters.assigneeId">
+                    <mat-option value="">All</mat-option>
                     <mat-option *ngFor="let user of users" [value]="user.id">
                         {{user.name}}
                     </mat-option>
@@ -62,6 +64,6 @@
     <tr mat-row (click)="clickedRows.add(row)" [class.demo-row-is-clicked]="clickedRows.has(row)"
         *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator (page)="search()" [disabled]="isNewRecordAdded" [length]="tickets.length" [pageSize]="pageSize"
+<mat-paginator (page)="search()" [disabled]="isNewRecordAdded" [length]="total" [pageSize]="pageSize"
     [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
 </mat-paginator>

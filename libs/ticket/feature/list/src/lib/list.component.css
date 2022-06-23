@@ -19,3 +19,7 @@
   .add-new-ticket-cell {
     display: flex;
   }
+
+form .disabled {
+  pointer-events: none;
+}
