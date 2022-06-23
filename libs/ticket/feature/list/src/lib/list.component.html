@@ -3,7 +3,6 @@
 <mat-card>
     <mat-card-title>Filters</mat-card-title>
     <mat-card-content>
-
         <form novalidate (ngSubmit)="search()" [ngClass]="{disabled: isNewRecordAdded}">
             <mat-form-field appearance="fill">
                 <mat-label>Search by description</mat-label>
@@ -26,7 +25,7 @@
         </form>
     </mat-card-content>
 </mat-card>
-<table mat-table [dataSource]="tickets" class="mat-elevation-z8 demo-table">
+<table mat-table [dataSource]="filteredTickets" class="mat-elevation-z8 demo-table">
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let element" [routerLink]="element.id ? ['/ticket/details', element.id]: []">

@@ -44,6 +44,7 @@ const matModules = [
 export class TicketListComponent implements OnInit {
 
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
   users: User[] = [];
   usersMap = new Map<number, string>();
   // TODO: move below constants
@@ -66,12 +67,13 @@ export class TicketListComponent implements OnInit {
     this.tickets.push({
       completed: false,
     } as Ticket);
-    this.tickets = [...this.tickets];
+    this.search();
   }
 
   search() {
     console.log(this.paginator.pageIndex);
-    this.tickets = this.tickets.splice(this.paginator.pageIndex * this.pageSize, this.pageSize);
+    const currentPage = this.paginator.pageIndex * this.pageSize;
+    this.filteredTickets = this.tickets.slice(currentPage, currentPage + this.pageSize);
   }
 
   cancel() {
@@ -95,6 +97,7 @@ export class TicketListComponent implements OnInit {
       lastValueFrom(this.api.users()),
     ]);
     this.tickets = tickets;
+    this.search();
     this.users = users;
     users.forEach((user: User) => this.usersMap.set(user.id, user.name));
   }
