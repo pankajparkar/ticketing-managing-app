@@ -1,4 +1,31 @@
 <h2>Tickets</h2>
+<mat-card>
+    <mat-card-title>Filters</mat-card-title>
+    <mat-card-content>
+        <form class="example-form" (ngSubmit)="search()">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Search by description</mat-label>
+                <input matInput placeholder="Ex. Implement add new feature" value="Sushi">
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Assignee</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let user of users" [value]="user.id">
+                        {{user.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button type="submit" (click)="addNewRow()" color="primary">
+                Search
+            </button>
+            <button mat-raised-button type="button" (click)="addNewRow()" color="primary">
+                Add Ticket
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>
 <table mat-table [dataSource]="tickets" class="mat-elevation-z8 demo-table">
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
@@ -6,16 +33,24 @@
             <ng-container *ngIf="element.id">
                 {{element.description}}
             </ng-container>
-            <ng-container *ngIf="!element.id">
-                <input matInput value="Sushi">
-            </ng-container>
+            <!-- TODO: add new component for this -->
+            <div *ngIf="!element.id" class="add-new-ticket-cell">
+                <input #input matInput value="Sushi">
+                <button type="button" mat-raised-button [disabled]="!input.value?.length"
+                    (click)="saveTicket(input.value)">
+                    Save
+                </button>
+                <button type="button" mat-raised-button (click)="cancel()">
+                    Cancel
+                </button>
+            </div>
         </td>
     </ng-container>
 
     <ng-container matColumnDef="assignee">
         <th mat-header-cell *matHeaderCellDef>Assigned</th>
         <td mat-cell *matCellDef="let element">
-            {{users.get(element.assigneeId) ?? 'Unassigned' }}
+            {{usersMap.get(element.assigneeId) ?? 'Unassigned' }}
         </td>
     </ng-container>
 

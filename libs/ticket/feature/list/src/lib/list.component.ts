@@ -12,6 +12,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -20,6 +23,9 @@ const matModules = [
   MatButtonModule,
   MatInputModule,
   MatFormFieldModule,
+  MatCardModule,
+  MatSelectModule,
+  MatSnackBarModule,
 ];
 
 @Component({
@@ -36,7 +42,9 @@ const matModules = [
 export class TicketListComponent implements OnInit {
 
   tickets: Ticket[] = [];
-  users = new Map<number, string>();
+  users: User[] = [];
+  usersMap = new Map<number, string>();
+  // TODO: move below constants
   status = new Map<boolean, string>([
     [false, 'Incomplete'],
     [true, 'Completed'],
@@ -46,7 +54,27 @@ export class TicketListComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-  ) {
+    private snackbar: MatSnackBar,
+  ) { }
+
+  addNewRow() {
+    this.tickets.push({
+      completed: false,
+    } as Ticket);
+    this.tickets = [...this.tickets];
+  }
+
+  search() { }
+
+  cancel() {
+    this.tickets = this.tickets.filter(ticket => ticket.id);
+  }
+
+  async saveTicket(description: string) {
+    await lastValueFrom(this.api.newTicket({ description }));
+    // TODO: move it to constants
+    this.snackbar.open('Ticket Saved Successfully');
+    this.tickets = await lastValueFrom(this.api.tickets());
   }
 
   async getTickets() {
@@ -55,10 +83,8 @@ export class TicketListComponent implements OnInit {
       lastValueFrom(this.api.users()),
     ]);
     this.tickets = tickets;
-    tickets.push({
-      completed: false,
-    } as Ticket);
-    users.forEach((user: User) => this.users.set(user.id, user.name));
+    this.users = users;
+    users.forEach((user: User) => this.usersMap.set(user.id, user.name));
   }
 
   ngOnInit() {
