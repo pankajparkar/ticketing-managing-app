@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '@acme/shared/data-access';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { Ticket, User } from '@acme/shared-models';
 import { lastValueFrom } from 'rxjs';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,6 +36,7 @@ const matModules = [
     ...matModules,
     CommonModule,
     RouterModule,
+    FormsModule,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
@@ -51,6 +53,9 @@ export class TicketListComponent implements OnInit {
   ]);
   displayedColumns: string[] = ['description', 'assignee', 'status'];
   clickedRows = new Set<Ticket>();
+  pageSize = 2;
+
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(
     private api: ApiService,
@@ -64,10 +69,17 @@ export class TicketListComponent implements OnInit {
     this.tickets = [...this.tickets];
   }
 
-  search() { }
+  search() {
+    console.log(this.paginator.pageIndex);
+    this.tickets = this.tickets.splice(this.paginator.pageIndex * this.pageSize, this.pageSize);
+  }
 
   cancel() {
     this.tickets = this.tickets.filter(ticket => ticket.id);
+  }
+
+  get isNewRecordAdded() {
+    return this.tickets.some(ticket => !ticket.id);
   }
 
   async saveTicket(description: string) {

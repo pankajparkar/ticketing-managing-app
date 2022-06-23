@@ -1,14 +1,14 @@
 <h2>Tickets</h2>
+<!-- TODO: separate component for filters -->
 <mat-card>
     <mat-card-title>Filters</mat-card-title>
     <mat-card-content>
-        <form class="example-form" (ngSubmit)="search()">
-            <mat-form-field class="example-full-width" appearance="fill">
+
+        <form novalidate (ngSubmit)="search()" [ngClass]="{disabled: isNewRecordAdded}">
+            <mat-form-field appearance="fill">
                 <mat-label>Search by description</mat-label>
                 <input matInput placeholder="Ex. Implement add new feature" value="Sushi">
-
             </mat-form-field>
-
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Assignee</mat-label>
                 <mat-select>
@@ -17,7 +17,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-raised-button type="submit" (click)="addNewRow()" color="primary">
+            <button mat-raised-button type="submit" color="primary">
                 Search
             </button>
             <button mat-raised-button type="button" (click)="addNewRow()" color="primary">
@@ -63,3 +63,6 @@
     <tr mat-row (click)="clickedRows.add(row)" [class.demo-row-is-clicked]="clickedRows.has(row)"
         *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator (page)="search()" [disabled]="isNewRecordAdded" [length]="tickets.length" [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+</mat-paginator>
